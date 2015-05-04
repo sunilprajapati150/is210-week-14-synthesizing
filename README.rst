@@ -8,13 +8,21 @@ Synthesizing Tasks
 :College: CUNY School of Professional Studies
 :Course-Name: Software Application Programming I
 :Course-Code: IS 210
-:Points: ##
+:Points: 18
 :Due-Date: YYYY-MM-DDTHH:mm:ss
 
 Overview
 ========
 
-[overview]
+In additional to compactness, the generator (whether an object or a function)
+has massive performance benefits for Python. In this set of tasks we'll revive
+our old friend the Fibonacci sequence to watch the generator pattern in-action.
+
+.. warning::
+
+    It is possible to pass the unit tests without passing the assignment.
+    Students are expected to follow directions and use the directed tools to
+    achieve their objectives.
 
 Instructions
 ============
@@ -41,24 +49,102 @@ files that you create!
 Synthesizing Tasks
 ==================
 
-Task ##
+Task 01
 -------
 
-[description of task]
+In this task you will create a new Fibonacci sequence generator. The generator
+should be able to produce a variable number of Fibonacci numbers as specified
+in the count parameter.
+
+A version of your original Fibonacci sequencer has been included for reference
+in ``oldfibo.py``.
 
 Specifications
 ^^^^^^^^^^^^^^
 
-[step-by-step directions of the task]
+#.  Create a module named ``task_01.py``
+
+#.  Create a function named ``xfibo()`` that takes exactly one argument:
+
+    #.  ``count`` (int), The number of Fibonacci numbers to return.
+
+#.  Create a generator that will yield each number in a Fibonacci sequence
+    starting with ``0``
+
+#.  The generator should stop after it has returned the number of numbers
+    specified in the ``count`` parameter
+
 
 Examples
 ^^^^^^^^
 
-[examples of the work in-progress]
+.. code:: pycon
+
+    >>> for i in xfibo(5):
+    ...     print i
+    0
+    1
+    1
+    2
+    3
+
+The above demonstrates the basic function of the module. For a more interesting
+challenge, try writing out a big number to a file, eg:
 
 .. code:: pycon
 
-    >>>
+    >>> fh = open('/tmp/numbers.txt', 'w')
+    >>> for number in xfibo(50000):
+    ...    fh.write('{}\n'.format(number))
+    >>> fh.close()
+
+This will create a file that is approximately 250MB in size. For comparison
+you *could* try the following:
+
+.. code:: pycon
+
+    >>> fh = open('/tmp/numbers.txt', 'w')
+    >>> for number in oldfibo(50000):
+    ...    fh.write('{}\n'.format(number))
+    >>> fh.close()
+
+.. warning::
+
+    Don't actually do this unless you want to crash your machine or you have
+    a *ridiculous* amount of memory. Because it has to build all 50000 numbers
+    in a list in memory before looping, all have to be captured in memory
+    simultaneously.
+
+Task 02
+-------
+
+Now that we've made a super-slick generator we're going to use a list
+comprehension to wrap it in a list. This effectively complete the circle; where
+a generator is more performant in cases where you only access each number at a
+time there might be other cases where you still need a true list. In these
+cases, the cheapest way to build the list is with a simple list comprehension.
+
+Specifications
+^^^^^^^^^^^^^^
+
+#.  Create a module named ``task_02.py``
+
+#.  Import ``task_01``
+
+#.  In ``task_02.py``, create a function named ``fibo()`` that takes one
+    argument:
+
+    #.  count (int), The total number of Fibonacci numbers to return
+
+#.  In the ``fibo()`` function, return a list comprehension that uses
+    ``task_01.xfibo()`` to generate ``count`` Fibonacci numbers and return them
+    all in a list.
+
+Examples
+^^^^^^^^
+
+    >>> fibo(5)
+    [0, 1, 1, 2, 3]
 
 Executing Tests
 ===============
