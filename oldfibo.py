@@ -5,7 +5,7 @@
 
 def oldfibo(count):
     """Fibo sequence generation function.
-    
+ 
     Args:
         count (int): Number of integers to return in the sequence.
 
